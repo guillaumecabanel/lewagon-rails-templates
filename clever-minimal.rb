@@ -1,4 +1,7 @@
 run "pgrep spring | xargs kill -9"
+
+# GEMFILE
+########################################
 run "rm Gemfile"
 file 'Gemfile', <<-RUBY
 source 'https://rubygems.org'
@@ -33,12 +36,18 @@ end
 #{Rails.version < "5" ? "gem 'rails_12factor', group: :production" : nil}
 RUBY
 
+# Ruby version
+########################################
 file ".ruby-version", RUBY_VERSION
 
+# Procfile
+########################################
 file 'Procfile', <<-YAML
 web: bundle exec puma -C config/puma.rb
 YAML
 
+# Puma conf file
+########################################
 if Rails.version < "5"
   puma_file_content = <<-RUBY
 threads_count = ENV.fetch("RAILS_MAX_THREADS") { 5 }.to_i
@@ -51,6 +60,8 @@ RUBY
   file 'config/puma.rb', puma_file_content, force: true
 end
 
+# Assets
+########################################
 run "rm -rf app/assets/stylesheets"
 run "curl -L https://github.com/lewagon/stylesheets/archive/master.zip > stylesheets.zip"
 run "unzip stylesheets.zip -d app/assets && rm stylesheets.zip && mv app/assets/rails-stylesheets-master app/assets/stylesheets"
@@ -63,8 +74,12 @@ file 'app/assets/javascripts/application.js', <<-JS
 //= require_tree .
 JS
 
+# Dev environment
+########################################
 gsub_file('config/environments/development.rb', /config\.assets\.debug.*/, 'config.assets.debug = false')
 
+# Layout
+########################################
 run 'rm app/views/layouts/application.html.erb'
 file 'app/views/layouts/application.html.erb', <<-HTML
 <!DOCTYPE html>
@@ -85,11 +100,15 @@ file 'app/views/layouts/application.html.erb', <<-HTML
 </html>
 HTML
 
+# README
+########################################
 markdown_file_content = <<-MARKDOWN
 Rails app generated with [lewagon/rails-templates](https://github.com/lewagon/rails-templates), created by the [Le Wagon coding bootcamp](https://www.lewagon.com) team.
 MARKDOWN
 file 'README.md', markdown_file_content, force: true
 
+# Generators
+########################################
 generators = <<-RUBY
   config.generators do |generate|
     generate.assets false
@@ -99,13 +118,22 @@ RUBY
 
 environment generators
 
+# AFTER BUNDLE
+########################################
 after_bundle do
+  # Generators: db + simple form + pages controller
+  ########################################
   rake 'db:drop db:create db:migrate'
   rake 'db:migrate'
   generate('simple_form:install', '--bootstrap')
   generate(:controller, 'pages', 'home', '--no-helper', '--no-assets', '--skip-routes')
+
+  # Routes
+  ########################################
   route "root to: 'pages#home'"
 
+  # Git ignore
+  ########################################
   run "rm .gitignore"
   file '.gitignore', <<-TXT
 .bundle
@@ -116,8 +144,14 @@ tmp/*
 .DS_Store
 public/assets
 TXT
+
+  # Figaro
+  ########################################
   run "bundle binstubs figaro"
   run "figaro install"
+
+  # Git
+  ########################################
   git :init
   git add: "."
   git commit: %Q{ -m 'Initial commit with minmal template from https://github.com/lewagon/rails-templates' }
