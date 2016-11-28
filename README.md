@@ -28,6 +28,22 @@ rails new \
   CHANGE_THIS_TO_YOUR_RAILS_APP_NAME
 ```
 
+## Clever Cloud
+
+You can find the same templates with Clever Cloud config files.
+
+### Minimal
+
+```bash
+rails new <YOUR_APP> -T -m https://raw.githubusercontent.com/cveneziani/lewagon-rails-templates/clever-cloud/clever-minimal.rb
+```
+
+### Devise
+
+```bash
+rails new <YOUR_APP> -T -m https://raw.githubusercontent.com/cveneziani/lewagon-rails-templates/clever-cloud/clever-devise.rb
+```
+
 # Testing
 
 These templates are generated without a `test` folder (thanks to the `-T` flag). Starting from here, you can add Minitest & Capybara with the following procedure:
