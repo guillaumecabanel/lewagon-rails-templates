@@ -35,13 +35,19 @@ You can find the same templates with Clever Cloud config files.
 ### Minimal
 
 ```bash
-rails new <YOUR_APP> -T -m https://raw.githubusercontent.com/cveneziani/lewagon-rails-templates/clever-cloud/clever-minimal.rb
+rails new \
+  -T --database postgresql \
+  -m https://raw.githubusercontent.com/cveneziani/lewagon-rails-templates/clever-cloud/clever-minimal.rb \
+  CHANGE_THIS_TO_YOUR_RAILS_APP_NAME
 ```
 
 ### Devise
 
 ```bash
-rails new <YOUR_APP> -T -m https://raw.githubusercontent.com/cveneziani/lewagon-rails-templates/clever-cloud/clever-devise.rb
+rails new \
+  -T --database postgresql \
+  -m https://raw.githubusercontent.com/cveneziani/lewagon-rails-templates/clever-cloud/clever-devise.rb
+  CHANGE_THIS_TO_YOUR_RAILS_APP_NAME
 ```
 
 # Testing
