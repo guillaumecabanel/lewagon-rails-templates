@@ -199,6 +199,7 @@ after_bundle do
   run "rm .gitignore"
   file '.gitignore', <<-TXT
 .bundle
+.clever.json
 log/*.log
 tmp/**/*
 tmp/*
