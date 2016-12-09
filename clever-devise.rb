@@ -67,7 +67,7 @@ file 'clevercloud/ruby.json', <<-EOF
 {
   "deploy": {
     "env": "production",
-    "rakegoals": ["db:migrate", "assets:precompile"],
+    "rakegoals": ["assets:precompile", "db:migrate"],
     "static": "/public"
   }
 }
