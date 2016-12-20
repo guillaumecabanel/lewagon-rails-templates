@@ -18,7 +18,7 @@ gem 'redis'
 gem 'sass-rails'
 gem 'jquery-rails'
 gem 'uglifier'
-gem 'bootstrap-sass'
+gem 'semantic-ui-sass', git: 'https://github.com/doabit/semantic-ui-sass.git'
 gem 'font-awesome-sass'
 gem 'simple_form'
 gem 'autoprefixer-rails'
@@ -113,7 +113,8 @@ run 'rm app/assets/javascripts/application.js'
 file 'app/assets/javascripts/application.js', <<-JS
 //= require jquery
 //= require jquery_ujs
-//= require bootstrap-sprockets
+// Loads all Semantic javascripts
+//= require semantic-ui
 //= require_tree .
 JS
 
@@ -165,7 +166,7 @@ run "curl -L https://raw.githubusercontent.com/lewagon/design/master/logos/png/l
 # README
 ########################################
 markdown_file_content = <<-MARKDOWN
-Rails app generated with [lewagon/rails-templates](https://github.com/lewagon/rails-templates), created by the [Le Wagon coding bootcamp](https://www.lewagon.com) team.
+Rails app generated with [guillaumecabanel/rails-templates](https://github.com/guillaumecabanel/rails-templates) inspired by the [lewagon/rails-templates](https://github.com/lewagon/rails-templates), created by the [Le Wagon coding bootcamp](https://www.lewagon.com) team.
 MARKDOWN
 file 'README.md', markdown_file_content, force: true
 
@@ -252,6 +253,9 @@ RUBY
 
   inside 'config' do
     figaro_yml = <<-EOF
+# Export to environnement variable to Clever-Cloud with this command:
+# spring stop ; rails runner -e production 'puts ENV.keys.grep(/\A_FIGARO/).map { |key| "#{key.gsub("_FIGARO_", "")}=#{ENV[key]}" }.join("\n")' | clever env import
+#
 # Add configuration values here, as shown below.
 #
 # GOOGLE_API_BROWSER_KEY: "AI**********oc"
@@ -273,5 +277,5 @@ EOF
   ########################################
   git :init
   git add: "."
-  git commit: %Q{ -m 'Initial commit with devise template from https://github.com/lewagon/rails-templates' }
+  git commit: %Q{ -m 'Initial commit with devise template' }
 end
