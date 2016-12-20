@@ -253,9 +253,6 @@ RUBY
 
   inside 'config' do
     figaro_yml = <<-EOF
-# Export to environnement variable to Clever-Cloud with this command:
-# spring stop ; rails runner -e production 'puts ENV.keys.grep(/\A_FIGARO/).map { |key| "#{key.gsub("_FIGARO_", "")}=#{ENV[key]}" }.join("\n")' | clever env import
-#
 # Add configuration values here, as shown below.
 #
 # GOOGLE_API_BROWSER_KEY: "AI**********oc"
