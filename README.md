@@ -9,16 +9,16 @@ But using [Semantic-UI](https://github.com/doabit/semantic-ui-sass) css framewor
 ```bash
 rails new \
   -T --database postgresql \
-  -m https://raw.githubusercontent.com/guillaumecabanel/lewagon-rails-templates/clever-minimal.rb \
+  -m https://raw.githubusercontent.com/guillaumecabanel/lewagon-rails-templates/master/clever-minimal.rb \
   CHANGE_THIS_TO_YOUR_RAILS_APP_NAME
 ```
 
-### Devise (TODO)
+### Devise
 
 ```bash
 rails new \
   -T --database postgresql \
-  -m https://raw.githubusercontent.com/guillaumecabanel/lewagon-rails-templates/clever-devise.rb
+  -m https://raw.githubusercontent.com/guillaumecabanel/lewagon-rails-templates/master/clever-devise.rb
   CHANGE_THIS_TO_YOUR_RAILS_APP_NAME
 ```
 
