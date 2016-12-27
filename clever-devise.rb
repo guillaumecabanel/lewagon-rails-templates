@@ -203,7 +203,7 @@ after_bundle do
   ########################################
   rake 'db:drop db:create db:migrate'
   rake 'db:migrate'
-  generate('simple_form:install', '--bootstrap')
+  generate('simple_form:install')
   generate(:controller, 'pages', 'home', '--no-helper', '--no-assets', '--skip-routes')
 
   # Routes
