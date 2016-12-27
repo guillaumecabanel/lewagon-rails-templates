@@ -206,6 +206,12 @@ after_bundle do
   generate('simple_form:install')
   generate(:controller, 'pages', 'home', '--no-helper', '--no-assets', '--skip-routes')
 
+  # Config simple form with Semantic ui
+  # run "rm -rf config/initializers/simple_form_bootstrap.rb"
+  run "rm -rf config/initializers/simple_form.rb"
+  run "curl -L https://raw.githubusercontent.com/guillaumecabanel/lewagon-rails-templates/master/simple_form.rb > config/initializers/simple_form.rb"
+
+
   # Routes
   ########################################
   route "root to: 'pages#home'"
