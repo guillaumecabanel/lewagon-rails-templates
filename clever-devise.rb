@@ -106,8 +106,8 @@ end
 # Assets
 ########################################
 run "rm -rf app/assets/stylesheets"
-run "curl -L https://github.com/lewagon/stylesheets/archive/master.zip > stylesheets.zip"
-run "unzip stylesheets.zip -d app/assets && rm stylesheets.zip && mv app/assets/rails-stylesheets-master app/assets/stylesheets"
+run "curl -L https://github.com/guillaumecabanel/stylesheets/raw/master/stylesheets.zip > stylesheets.zip"
+run "unzip stylesheets.zip -d app/assets && rm stylesheets.zip"
 
 run 'rm app/assets/javascripts/application.js'
 file 'app/assets/javascripts/application.js', <<-JS
@@ -116,6 +116,19 @@ file 'app/assets/javascripts/application.js', <<-JS
 // Loads all Semantic javascripts
 //= require semantic-ui
 //= require_tree .
+JS
+
+file 'app/assets/javascripts/flashes.js', <<-JS
+// Close dismissable ui messages
+$('.message .close')
+  .on('click', function() {
+    $(this)
+      .closest('.message')
+      .transition('fade')
+    ;
+  })
+;
+
 JS
 
 # Dev environment
@@ -139,7 +152,11 @@ file 'app/views/layouts/application.html.erb', <<-HTML
   <body>
     <%= render 'shared/navbar' %>
     <%= render 'shared/flashes' %>
-    <%= yield %>
+
+    <div class="ui container">
+      <%= yield %>
+    </div>
+
     <%= javascript_include_tag 'application' %>
   </body>
 </html>
@@ -147,21 +164,19 @@ HTML
 
 file 'app/views/shared/_flashes.html.erb', <<-HTML
 <% if notice %>
-  <div class="alert alert-info alert-dismissible" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <%= notice %>
+  <div class="ui info message">
+    <i class="close icon"></i>
+    <p><%= notice %></p>
   </div>
 <% end %>
+
 <% if alert %>
-  <div class="alert alert-warning alert-dismissible" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <%= alert %>
+  <div class="ui warning message">
+    <i class="close icon"></i>
+    <p><%= alert %></p>
   </div>
 <% end %>
 HTML
-
-run "curl -L https://raw.githubusercontent.com/lewagon/awesome-navbars/master/templates/_navbar_wagon.html.erb > app/views/shared/_navbar.html.erb"
-run "curl -L https://raw.githubusercontent.com/lewagon/design/master/logos/png/logo_red_circle.png > app/assets/images/logo.png"
 
 # README
 ########################################
